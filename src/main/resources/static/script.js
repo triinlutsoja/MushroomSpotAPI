@@ -2,6 +2,11 @@
 
 var popup = L.popup();
 
+const onEachFeature = function (feature, layer) {
+  const description = feature.properties?.description || "No description";
+  layer.bindPopup(description);
+};
+
 // Create base map centered on Estonia
 const map = L.map('map').setView([58.5953, 25.0136], 7); 
 
@@ -26,10 +31,7 @@ async function fetchMushroomSpots() {
 
     // Layer to add GeoJSON objects to the map
    L.geoJSON(mushroomSpots, {
-    onEachFeature: function (feature, layer) {
-      const description = feature.properties?.description || "No description";
-      layer.bindPopup(description);
-    },
+    onEachFeature: onEachFeature
    }).addTo(map);
 
   } catch (error) {
@@ -39,6 +41,8 @@ async function fetchMushroomSpots() {
 
 // Function to add a new spot when user clicks on map
 function onMapClick(e) {
+    map.closePopup();
+
     const lat = e.latlng.lat;
     const lng = e.latlng.lng;
 
@@ -90,8 +94,11 @@ function onMapClick(e) {
             const createdSpot = await response.json();
             console.log("Spot added:", createdSpot);
 
-            L.geoJSON(createdSpot).addTo(map);
+            L.geoJSON(createdSpot, {
+              onEachFeature: onEachFeature
+            }).addTo(map);
             map.closePopup();
+
           } catch (error) {
             console.error("Error adding spot: ", error);
           }
