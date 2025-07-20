@@ -4,8 +4,16 @@ import java.util.Objects;
 
 public class MushroomSpotCreateDto {
     private String description;
-    private Double latitude;
     private Double longitude;
+    private Double latitude;
+
+    public MushroomSpotCreateDto() {}
+
+    public MushroomSpotCreateDto(String description, Double longitude, Double latitude) {
+        this.description = description;
+        this.latitude = latitude;
+        this.longitude = longitude;
+    }
 
     public String getDescription() {
         return description;
@@ -13,14 +21,6 @@ public class MushroomSpotCreateDto {
 
     public void setDescription(String description) {
         this.description = description;
-    }
-
-    public Double getLatitude() {
-        return latitude;
-    }
-
-    public void setLatitude(Double latitude) {
-        this.latitude = latitude;
     }
 
     public Double getLongitude() {
@@ -31,12 +31,20 @@ public class MushroomSpotCreateDto {
         this.longitude = longitude;
     }
 
+    public Double getLatitude() {
+        return latitude;
+    }
+
+    public void setLatitude(Double latitude) {
+        this.latitude = latitude;
+    }
+
     @Override
     public String toString() {
         return "MushroomSpotCreateDto{" +
                 "description='" + description + '\'' +
-                ", latitude=" + latitude +
                 ", longitude=" + longitude +
+                ", latitude=" + latitude +
                 '}';
     }
 
@@ -44,14 +52,14 @@ public class MushroomSpotCreateDto {
     public final boolean equals(Object o) {
         if (!(o instanceof MushroomSpotCreateDto that)) return false;
 
-        return Objects.equals(description, that.description) && Objects.equals(latitude, that.latitude) && Objects.equals(longitude, that.longitude);
+        return Objects.equals(description, that.description) &&  Objects.equals(longitude, that.longitude) && Objects.equals(latitude, that.latitude);
     }
 
     @Override
     public int hashCode() {
         int result = Objects.hashCode(description);
-        result = 31 * result + Objects.hashCode(latitude);
         result = 31 * result + Objects.hashCode(longitude);
+        result = 31 * result + Objects.hashCode(latitude);
         return result;
     }
 }

@@ -43,12 +43,12 @@ This is a RESTful Spring Boot application for managing mushroom picking spots. S
 
 ### API endpoints
 
-GET /mushroomspots 
-Response: `200 OK` 
-Returns a list of GeoJSON Feature objects.
+**GET /mushroomspots**
+- Response: `200 OK` 
+- Returns a GeoJSON FeatureCollection object containing all stored mushroom spots.
 
-POST /mushroomspots 
-Request Body (JSON):
+**POST /mushroomspots**
+- Request Body (JSON):
 ```json
 {
 "description": "Kuuseriisikad",
@@ -56,12 +56,12 @@ Request Body (JSON):
   "longitude": 26.745
 }
 ```
-Response: `201 Created` 
-Returns the created spot in GeoJSON format. 
-Error: `400 Bad Request` if input is invalid.
+- Response: `201 Created` 
+- Returns the created spot in GeoJSON format. 
+- Error: `400 Bad Request` if input is invalid.
 
-PUT /mushroomspots/{id} 
-Request Body (JSON):
+**PUT /mushroomspots/{id}**
+- Request Body (JSON):
 ```json
 {
 "description": "Updated description",
@@ -69,14 +69,14 @@ Request Body (JSON):
   "longitude": 26.745
 }
 ```
-Response: `200 OK` 
-Returns the updated spot in GeoJSON format. 
-Error: `400 Bad Request` if input is invalid. 
-Error: `404 Not Found` if the spot with given ID doesn't exist.
+- Response: `200 OK` 
+- Returns the updated spot in GeoJSON format. 
+- Error: `400 Bad Request` if input is invalid. 
+- Error: `404 Not Found` if the spot with given ID doesn't exist.
 
-DELETE /mushroomspots/{id} 
-Response: `204 No Content` 
-Error: `404 Not Found` if the spot with given ID doesn't exist.
+**DELETE /mushroomspots/{id}**
+- Response: `204 No Content` 
+- Error: `404 Not Found` if the spot with given ID doesn't exist.
 
 
 ## Frontend
@@ -87,6 +87,12 @@ This project includes a simple frontend web map using [Leaflet.js](https://leafl
 - The HTML, JS and CSS files are located in `src/main/resources/static`.
 - The map uses Leaflet via a public CDN (cdnjs).
 - After launching the application, open `http://localhost:8080` in your browser to view the frontend.
+
+### Features
+- Displays existing mushroom spots fetched form the backend and marks them on the map.
+- Allows users to add new mushroom spots by clicking on the map, which opens a form for entering a description.
+- Newly added spots are sent to the backend and displayed on the map instantly.
+- Includes styling for the spot adding form for a better user experience.
 
 ## Tests
 
