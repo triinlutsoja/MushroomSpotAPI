@@ -7,7 +7,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/mushroomspots")
@@ -20,9 +22,14 @@ public class MushroomSpotController {
     }
 
     @GetMapping
-    public ResponseEntity<List<MushroomSpotGeoJsonDto>> getAllSpots() {
+    public ResponseEntity<Map<String, Object>> getAllSpots() {
         List<MushroomSpotGeoJsonDto> dtos = mushroomSpotService.getAllSpots();
-        return ResponseEntity.status(HttpStatus.OK).body(dtos);
+
+        Map<String, Object> featureCollection = new HashMap<>();
+        featureCollection.put("type", "FeatureCollection");
+        featureCollection.put("features", dtos);
+
+        return ResponseEntity.status(HttpStatus.OK).body(featureCollection);
     }
 
     @PostMapping
